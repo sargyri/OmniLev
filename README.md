@@ -1,3 +1,27 @@
 # OmniLev
 
 Welcome to the OmniLev project. In this depository you can find guidlines for the design of multipl-transducers acoustic levitators, based on the work presented in doi.org.....
+
+The schaffolds of the acoustic levitators presented in the publication can be found as .stl files in the folder ''Files_for_3D_printing''.
+
+
+### To run the OmniLev App for the pre-evaluation of cutomized acoustic levitators 
+- Download the folder ''App''
+- Open the Anaconda command window
+- Locate the folder ''App''
+- Use the command: streamlit run OmniLev.py
+- A local website should automatically open in a browser.
+
+#### The following Python libratries need to be installed:
+- streamlit
+- matplotlib
+- numpy
+- numpy-stl
+- panda
+- plotly
+- solidpython
+- levitate
+
+#### The following softwares are required for deisgning and 3D printing the schaffolds of the aocustic levitators, respectively:
+- OpenScad https://openscad.org/
+- Ultimaker Cura (or similar dependning on 3D printer) 
