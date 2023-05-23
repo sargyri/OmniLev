@@ -2,7 +2,7 @@
 
 Welcome to the OmniLev project. In this depository you can find guidlines for the design of multipl-transducers acoustic levitators, based on the work presented in doi.org.....
 
-The schaffolds of the acoustic levitators presented in the publication can be found as .stl files in the folder ''Files_for_3D_printing''.
+The scaffolds of the acoustic levitators presented in the publication can be found as .stl files in the folder ''Files_for_3D_printing''.
 
 
 ### To run the OmniLev App for the pre-evaluation of cutomized acoustic levitators 
