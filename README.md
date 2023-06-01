@@ -15,7 +15,7 @@ The scaffolds of the acoustic levitators presented in the publication can be fou
 - levitate
 
 
-### The following softwares are required for deisgning and 3D printing the schaffolds of the aocustic levitators, respectively:
+### The following softwares are required for deisgning and 3D printing the schaffolds of the acoustic levitators, respectively:
 - OpenScad https://openscad.org/
 - Ultimaker Cura (or similar dependning on 3D printer) 
 
