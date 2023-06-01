@@ -4,7 +4,7 @@ Welcome to the OmniLev project. In this depository you can find guidelines for d
 
 The scaffolds of the acoustic levitators presented in the publication can be found as .stl files in the folder ''Files_for_3D_printing''.
 
-### The following Python libraries need to be installed before running the OmniLev app:
+### The following Python libraries need to be installed <ins> before <ins> running the OmniLev app:
 - streamlit
 - matplotlib
 - numpy
