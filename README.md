@@ -23,7 +23,7 @@ The scaffolds of the acoustic levitators presented in the publication can be fou
 ### To run the OmniLev app for the pre-evaluation of cutomized acoustic levitators 
 - Download the folder ''App''
 - Open the Anaconda command window
-- Locate the folder ''App''
+- Set the folder ''App'' as the directory through the command: cd 'path_to_the_folder_App\'
 - Use the command: streamlit run OmniLev.py
 - A local website should automatically open in a browser.
 
