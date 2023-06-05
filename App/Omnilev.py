@@ -28,21 +28,21 @@ def lev_type(levname):
 def electronics():
     with st.container():
         st.header("Electronics :")
-        st.subheader("Phase determination :")
-        st.write("To create a resonant sound cavity, and thus building a stable levitator, one of the most important things is to know the relative phase of each transducer you will use.")
-        st.write("As transducers are usually not marked regarding which pin is which, you will need to determine this manually.")
-        st.write("This 3D print part can help you to do so. It consists of two spots for 2 transducers separated by exactly an integer number of sound wavelength at 40kHz.")
+        st.subheader("Polarity determination :")
+        st.write("To create a resonant sound cavity, and thus building a stable levitator, one of the most important things is to know the relative polarity of each transducer you will use.")
+        st.write("As transducers are usually not marked regarding the polarity of the pins, you will need to determine this manually.")
+        st.write("This 3D print part can help you to do so. It consists of two areas for 2 transducers separated by exactly an integer number of sound wavelength at 40kHz.")
         with open('biblio/stl/phase.stl', 'rb') as f:
                 st.download_button(label = "Download phase tool", data = f,file_name = "phase.stl")
-        st.write("Insert a transducer in the circled emplacement, it will be your reference, supply it with 40kHz signal, monitored with an oscilloscope.")
-        st.write("One the other side, place a transducer and monitor its electrical output on the oscilloscope.")
-        st.write("You should see two signal, either in phase (ie. matching maxima and mimima) or in phase opposition (maxima facing minima).")
+        st.write("Insert a transducer in the circled emplacement, which will be your reference. Supply it with 40kHz signal, monitored with an oscilloscope.")
+        st.write("On the other side, place a transducer and monitor its electrical output on the oscilloscope.")
+        st.write("You should see two signals, either in phase (i.e. matching maxima and mimima) or in phase opposition (maxima facing minima).")
         st.write("Choose a convention (Beware that you will have to keep the same for all the transducers) for example : if signals are in phase, mark the pin connected to X wire, and if not mark the other pin.")
-        st.write("Then, all the marked pins will be the same.")
+        st.write("Then, all the marked pins will have the same polarity.")
 
 def right_column_simulation(levitator):
     with st.form("plots to display"):
-        st.header("Modelisation")
+        st.header("Designing customized acoustic levitators")
         phase_diff = st.slider('Phase difference', min_value = -1., max_value = 1., value = 0.)
         plot = st.multiselect("Select plots to display", ["Pressure XZ", "Pressure YZ", "Pressure XY",'Gorkov XZ','Gorkov YZ','Gorkov XY', 'Pressure X', 'Pressure Y', 'Pressure Z'])
         submitted = st.form_submit_button("Calculate")
@@ -52,13 +52,13 @@ def right_column_simulation(levitator):
 
 def left_column_print(lev_name):
     with st.container():
-        st.header("3D case")
+        st.header("3D scaffold")
         with open('biblio/scad/'+lev_name+'.scad', 'rb') as f:
-            st.download_button(label = "Download SCAD File", data = f,file_name = lev_name+'.scad')    
+            st.download_button(label = "Download SCAD file", data = f,file_name = lev_name+'.scad')    
     
-        st.write("You will find here the STL File of the levitator and the preview : ")
+        st.write("Here you will find the STL file of the levitator and the preview : ")
         with open('biblio/stl/'+lev_name+'.zip', 'rb') as f:
-            st.download_button(label = "Download STL File(s)", data = f,file_name = lev_name+'.zip')
+            st.download_button(label = "Download STL file(s)", data = f,file_name = lev_name+'.zip')
             
         meshstl = mesh.Mesh.from_file('biblio/stl/'+lev_name+'.stl')
         st.plotly_chart(stlmeshplot(meshstl),use_column_width = True)
@@ -82,62 +82,62 @@ st.sidebar.image(Image.open('misc/logo2.jpg'), use_column_width=True)
 if st.session_state.levtype == 'none':
     col1, col2, col3 = st.columns(3)
     with col2:
-        st.title('Build your own levitator !')
+        st.title('Design and 3D print your own levitator !')
 
-    st.write("This platform provide blueprints and tutorials to build experimental acoustic levitators using a 3D printer and low cost electronics. Several models with their own specifications are provided as long as a tool to design your own.")
+    st.write("This platform provides blueprints and tutorials on fabricating acoustic levitators, using a 3D printer and cost effective electronics. Several models with their own specifications are provided, and a tool to design your own.")
     
     col1, col2, col3 = st.columns(3)
     with col1:
         st.header('Mk1')
         st.image([Image.open('misc/Mk1.jpg')],width=400)
         st.subheader('Specifications :')
-        st.write("Total Diameter : 63mm")
-        st.write("Total Height : 76mm")
+        st.write("Total diameter : 63mm")
+        st.write('Radius of curvature: 28 mm')
+        st.write("Total height : 76mm")
+        st.write('Cavity length: 52 mm')
         st.write("Number of transducers : 34 (17 + 17)")
         st.write("Size of transducers : 10mm")
         st.write("Operating frequency : 40kHz ")
         st.subheader("Mk1 Models :")
-        st.button('Build a Mk1 Levitator', on_click = lev_type, args=('Mk1',))
-        st.button('Build a Mk1 with screws', on_click = lev_type, args=('Mk1_screw',))
+        st.button('3D print levitator Mk1', on_click = lev_type, args=('Levitator_Mk1',))
     
     with col2:
         st.header('Mk2')
-        # st.image([Image.open('misc/Mk2.jpg')],width=400)
+        st.image([Image.open('misc/Mk2.jpg')],width=400)
         st.subheader('Specifications :')
-        st.write("Total Diameter : 42mm")
-        st.write("Total Height : 46mm")
+        st.write("Total diameter : 42mm")
+        st.write('Radius of curvature: 20 mm')
+        st.write("Total height : 46mm")
+        st.write('Cavity length: 38 mm')
         st.write("Number of transducers : 24 (12 + 12), uncapped")
         st.write("Size of transducers : 10mm")
         st.write("Operating frequency : 40kHz ")
         st.subheader("Mk2 Models :")
-        st.button('Build a Mk2 Levitator', on_click = lev_type, args=('Mk1',))
-        st.button('Build a Mk2 with screws', on_click = lev_type, args=('Mk2_screw',))
+        st.button('3D print levitator Mk2', on_click = lev_type, args=('Levitator_Mk2',))
 
     with col3:
         st.header('Mk3')
         st.image([Image.open('misc/Mk3.jpg')],width=400)
         st.subheader('Specifications :')
-        st.write("Total Diameter : 50mm")
-        st.write("Total Height : 60mm")
+        st.write("Total diameter : 50mm")
+        st.write('Radius of curvature: 21 mm')
+        st.write("Total height : 60mm")
+        st.write('Cavity length: 42 mm')
         st.write("Number of transducers : 36 (18 + 18), uncapped, beehive configuration")
         st.write("Size of transducers : 10mm")
         st.write("Operating frequency : 40kHz ")
         st.subheader("Mk3 Models :")
-        st.button('Get Mk3 halves', on_click = lev_type, args=('Mk3_2halves',))
-        st.button('Get Mk3 in 3 pieces', on_click = lev_type, args=('Mk3_3pieces',))
-        st.button('Get Mk3 in 1 piece', on_click = lev_type, args=('Mk3_1piece',))
-        st.button('Build Mk3 with holding bars', on_click = lev_type, args=('Mk3_bars',))
-        st.button('Build Mk3 in 3 pieces with a base', on_click = lev_type, args=('Mk3_3pieces_based',))
+        st.button('3D print levitator Mk3', on_click = lev_type, args=('Levitator_Mk3',))
     
     st.sidebar.header('CustomLev')
-    st.sidebar.write("CustomLev is a built-in experimental app to design parametric levitator.")
-    st.sidebar.button('Build a customlev', on_click = lev_type, args=('Custom',))
+    st.sidebar.write("CustomLev is a built-in app that is used for the design of customized levitators.")
+    st.sidebar.button('3D print a customlev', on_click = lev_type, args=('Custom',))
 
 #--------------------------------------
 ######### Models
 #------------------
 
-elif st.session_state.levtype == 'Mk1':
+elif st.session_state.levtype == 'Levitator_Mk1':
     st.title('Mk1')
     print3d, simul = st.columns(2)
     with print3d:
@@ -146,9 +146,19 @@ elif st.session_state.levtype == 'Mk1':
     with simul:
         right_column_simulation('mk1')
 
-elif st.session_state.levtype == 'Mk3_2halves':
-    st.title('Two Halves Mk3')
-    st.warning("This model only provides the 2 caps, top and bottom, without any other part to link them, it is recommended to use the scad file and edit it according to your own needs !")
+
+elif st.session_state.levtype == 'Levitator_Mk2':
+    st.title('Mk2')
+    print3d, simul = st.columns(2)
+    with print3d:
+        left_column_print(st.session_state.levtype)
+        electronics()
+    with simul:
+        right_column_simulation('mk2')
+
+
+elif st.session_state.levtype == 'Levitator_Mk3':
+    st.title('Mk3')
 
     print3d, simul = st.columns(2)
     with print3d:
@@ -157,32 +167,6 @@ elif st.session_state.levtype == 'Mk3_2halves':
     with simul:
         right_column_simulation('mk3')
 
-elif st.session_state.levtype == 'Mk3_3pieces':
-    st.title('Mk3 in 3 parts')
-    print3d, simul = st.columns(2)
-    with print3d:
-        left_column_print(st.session_state.levtype)
-        electronics()
-    with simul:
-        right_column_simulation('mk3')
-
-elif st.session_state.levtype == 'Mk3_3pieces_based':
-    st.title('Mk3 in 3 parts with a base')
-    print3d, simul = st.columns(2)
-    with print3d:
-        left_column_print(st.session_state.levtype)
-        electronics()
-    with simul:
-        right_column_simulation('mk3')
-
-elif st.session_state.levtype == 'Mk3_1piece':
-    st.title('Mk3 in 1 part')
-    print3d, simul = st.columns(2)
-    with print3d:
-        left_column_print(st.session_state.levtype)
-        electronics()
-    with simul:
-        right_column_simulation('mk3')
 
 #----------------------------------------------
 ####### Custom Lev
@@ -219,10 +203,10 @@ elif st.session_state.levtype == 'Custom':
         st.dataframe(models)
         
         st.subheader('Minimal Space between transducer (mm)')
-        "This value is set to ensure the transducers do not touch each other when their positions are calculated."
+        "This value is set to ensure the transducers are not in contact with each other when their positions are calculated."
         
         st.subheader('Thickness (mm)')
-        "It is the thickness of the printed part of sphere."
+        "It is the thickness of the printed part of the sphere."
 
         st.subheader('Well Depth (mm)')
         "Well depth is the depth of the holes where the transducer will be placed"
@@ -292,7 +276,7 @@ elif st.session_state.levtype == 'Custom':
         frequency = st.sidebar.slider('Frequency (kHz)', min_value = 20, max_value = 100, value = 40)
 
         
-    transducer_gap = st.sidebar.slider('Minimal wanted space between each transducer', min_value = 0., max_value = 3., value = settings.transducer_gap)
+    transducer_gap = st.sidebar.slider('Minimal space wanted between each transducer', min_value = 0., max_value = 3., value = settings.transducer_gap)
 
     st.sidebar.subheader('Case and Shape Parameters')
     thickness = st.sidebar.slider('Thickness', min_value = 0.5, max_value = 10., value = settings.thickness, step = 0.1)      #Tickness of the case
@@ -355,12 +339,12 @@ elif st.session_state.levtype == 'Custom':
         "transducer_gap": transducer_gap,
     }
 
-    if st.button('Build a stl File'):
+    if st.button('Create stl file'):
         isbuilt = True
         scad_path = build(settings)
         with st.spinner(text = "Building the levitator"):        
             os.system("openscad -o biblio/stl/"+settings['name']+".stl "+scad_path)
-        st.success('Done !')
+        st.success('Done!')
         time.sleep(1)
         lev_name = settings['name']    
         
@@ -369,11 +353,11 @@ elif st.session_state.levtype == 'Custom':
             with st.container():
                 st.header("3D case")
                 with open('biblio/scad/'+lev_name+'.scad', 'rb') as f:
-                    st.download_button(label = "Download SCAD File", data = f,file_name = lev_name+'.scad')    
+                    st.download_button(label = "Download SCAD file", data = f,file_name = lev_name+'.scad')    
             
-                st.write("You will find here the STL File of the levitator and the preview : ")
+                st.write("Here you will find the STL file of the levitator and the preview: ")
                 with open('biblio/stl/'+lev_name+'.stl', 'rb') as f:
-                    st.download_button(label = "Download STL File(s)", data = f,file_name = lev_name+'.stl')
+                    st.download_button(label = "Download STL file(s)", data = f,file_name = lev_name+'.stl')
                     
                 meshstl = mesh.Mesh.from_file('biblio/stl/'+lev_name+'.stl')
                 st.plotly_chart(stlmeshplot(meshstl),use_column_width = True)
@@ -390,7 +374,7 @@ elif st.session_state.levtype == 'Custom':
             os.system("openscad -o biblio/preview.png "+scad_file)  
             st.subheader('Scad Preview')
             with open(scad_file,'rb') as f:
-                st.download_button(label = "Download SCAD File", data = f,file_name = settings['name']+'.scad')
+                st.download_button(label = "Download SCAD file", data = f,file_name = settings['name']+'.scad')
             time.sleep(1)
             st.image(Image.open('biblio/preview.png'), width = 600)
         
