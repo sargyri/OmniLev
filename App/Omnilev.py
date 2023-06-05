@@ -8,7 +8,7 @@ import plotly.graph_objects as go
 from PIL import Image
 import os
 from stl import mesh
-import base64
+import base64 
 from src.lib_scad import *
 from src.lib_functions import *
 from src.models import *
