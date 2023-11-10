@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Thu Oct 15 15:43:06 2020
-
-@author: NicolasPaillet
-"""
-
 from solid import *
 from solid.utils import *
 import numpy as np
