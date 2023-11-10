@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Aug 19 10:50:34 2020
-
-@author: NicolasPaillet
-"""
-
 scad_filename = "lev_to_stl"
 
 # scad_path = "C:\Users\paillet\Desktop\openscad-2019.05"
