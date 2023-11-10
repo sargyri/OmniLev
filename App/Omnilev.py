@@ -8,7 +8,7 @@ import plotly.graph_objects as go
 from PIL import Image
 import os
 from stl import mesh
-import base64 
+import base64
 from src.lib_scad import *
 from src.lib_functions import *
 from src.models import *
@@ -43,8 +43,8 @@ def electronics():
 def right_column_simulation(levitator):
     with st.form("plots to display"):
         st.header("Designing customized acoustic levitators")
-        phase_diff = st.slider('Phase difference', min_value = -1., max_value = 1., value = 0.)
-        plot = st.multiselect("Select plots to display", ["Pressure XZ", "Pressure YZ", "Pressure XY",'Gorkov XZ','Gorkov YZ','Gorkov XY', 'Pressure X', 'Pressure Y', 'Pressure Z'])
+        phase_diff = st.slider('Phase difference, Δφ (in rad)', min_value = 0., max_value = np.pi, value = 0.)
+        plot = st.multiselect("Select plots to display", ["Pressure XZ", "Pressure YZ", "Pressure XY",'Gorkov XZ','Gorkov YZ','Gorkov XY', 'Pressure X', 'Pressure Y', 'Pressure Z', 'Trap stiffness vs cavity length', 'Acoustic radiation force vs cavity length', 'Curl vs cavity length'])
         submitted = st.form_submit_button("Calculate")
     if submitted:
         for i in plot:
@@ -88,7 +88,7 @@ if st.session_state.levtype == 'none':
     
     col1, col2, col3 = st.columns(3)
     with col1:
-        st.header('Mk1')
+        st.header('Acoustic levitator Mk1')
         st.image([Image.open('misc/Mk1.jpg')],width=400)
         st.subheader('Specifications :')
         st.write("Total diameter : 63mm")
@@ -98,11 +98,11 @@ if st.session_state.levtype == 'none':
         st.write("Number of transducers : 34 (17 + 17)")
         st.write("Size of transducers : 10mm")
         st.write("Operating frequency : 40kHz ")
-        st.subheader("Mk1 Models :")
-        st.button('3D print levitator Mk1', on_click = lev_type, args=('Levitator_Mk1',))
+        st.subheader("3D print files and simulations:")
+        st.button('Click here for Mk1', on_click = lev_type, args=('Levitator_Mk1',))
     
     with col2:
-        st.header('Mk2')
+        st.header('Acoustic levitator Mk2')
         st.image([Image.open('misc/Mk2.jpg')],width=400)
         st.subheader('Specifications :')
         st.write("Total diameter : 42mm")
@@ -112,11 +112,11 @@ if st.session_state.levtype == 'none':
         st.write("Number of transducers : 24 (12 + 12), uncapped")
         st.write("Size of transducers : 10mm")
         st.write("Operating frequency : 40kHz ")
-        st.subheader("Mk2 Models :")
-        st.button('3D print levitator Mk2', on_click = lev_type, args=('Levitator_Mk2',))
+        st.subheader("3D print files and simulations:")
+        st.button('Click here for Mk2', on_click = lev_type, args=('Levitator_Mk2',))
 
     with col3:
-        st.header('Mk3')
+        st.header('Acoustic levitator Mk3')
         st.image([Image.open('misc/Mk3.jpg')],width=400)
         st.subheader('Specifications :')
         st.write("Total diameter : 50mm")
@@ -126,12 +126,12 @@ if st.session_state.levtype == 'none':
         st.write("Number of transducers : 36 (18 + 18), uncapped, beehive configuration")
         st.write("Size of transducers : 10mm")
         st.write("Operating frequency : 40kHz ")
-        st.subheader("Mk3 Models :")
-        st.button('3D print levitator Mk3', on_click = lev_type, args=('Levitator_Mk3',))
+        st.subheader("3D print files and simulations:")
+        st.button('Click here for Mk3', on_click = lev_type, args=('Levitator_Mk3',))
     
     st.sidebar.header('CustomLev')
     st.sidebar.write("CustomLev is a built-in app that is used for the design of customized levitators.")
-    st.sidebar.button('3D print a customlev', on_click = lev_type, args=('Custom',))
+    st.sidebar.button('Design a customized levitator', on_click = lev_type, args=('Custom',))
 
 #--------------------------------------
 ######### Models
@@ -176,7 +176,7 @@ elif st.session_state.levtype == 'Custom':
     isbuilt = False
     st.title("Custom Levitator")
 
-    expl = st.expander("How to set the parameters ?")
+    expl = st.expander("How to set the parameters?")
     with expl:
         models = pd.DataFrame(columns = ['Model', 'Frequency (kHz)', 'Diameter (mm)', 'Height (mm)', 'Directivity', 'SPL (dB)', 'Leg Space (mm)','Leg Diameter (mm)', 'Leg Height (mm)'])  
         models.loc[0] = ['Murata MA40S4S', 40, 10, 7,'','',5.1,1.3,10]
@@ -384,7 +384,4 @@ elif st.session_state.levtype == 'Custom':
 else:
     st.session_state.levtype = 'none'
     st.experimental_rerun()
-            
-
-
             
